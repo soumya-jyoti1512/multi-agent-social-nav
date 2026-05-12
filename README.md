@@ -99,8 +99,8 @@ expands automatically when crowd dynamics shift.
 
 Each pedestrian's safety zone is the union of two sub-areas:
 
-$$D_1 = \bigl\{ p_\text{ego} : \|p_\text{ego} - p_h\| \leq 
-r_\text{ego} + r_h + r_\text{comfort} \bigr\}$$
+$$D_1 = \bigl\{ p_\text{ego} : \|p_\text{ego} - p_h\| 
+\leq r_\text{ego} + r_h + r_\text{comfort} \bigr\}$$
 
 $$D_2 = \bigl\{ p_\text{ego} : \|p_\text{ego} - 
 \hat{p}_{h,k}\| \leq r_\text{ego} + r_h + 
