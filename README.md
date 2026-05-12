@@ -2,7 +2,7 @@
 
 > An RL-based crowd navigation framework that achieves robust, 
 generalizable safe navigation through uncertainty quantification 
-and constrained policy learning — validated in simulation and 
+and constrained policy learning validated in simulation and 
 deployed on a real mobile robot.
 
 ---
