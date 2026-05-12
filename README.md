@@ -25,28 +25,28 @@ is intentional, social, and group-structured.
 This project addresses that challenge through a system that 
 combines:
 
-- **Multi-agent trajectory prediction** — forecasting future 
+- **Multi-agent trajectory prediction** - forecasting future 
 pedestrian positions using attention-based graph networks 
 that model both pairwise and group-wise interactions
-- **Uncertainty quantification** — wrapping predictions with 
+- **Uncertainty quantification** - wrapping predictions with 
 statistically valid uncertainty bounds via Adaptive Conformal 
 Inference (ACI), so the robot knows *how much to trust* each 
 prediction at every timestep
-- **Constrained reinforcement learning** — a policy that 
+- **Constrained reinforcement learning** - a policy that 
 explicitly accounts for prediction uncertainty in its cost 
 function, learning to stay safe even when predictions are 
 wrong or crowd dynamics shift
 
-The system generalizes across out-of-distribution scenarios — 
+The system generalizes across out-of-distribution scenarios 
 faster pedestrians, different crowd behavior models, pedestrian 
-group dynamics — where standard RL navigation methods degrade 
+group dynamics where standard RL navigation methods degrade 
 significantly. The learned policy was deployed on a physical 
 Mecanum-wheel robot in real outdoor crowd environments without 
-any fine-tuning, demonstrating direct sim-to-real transfer.
+any fine-tuning, demonstrating direct sim2real transfer.
 
 ---
 
-## Core System — Designed and Built by the Lab
+## Core System - Designed and Built by the Lab
 
 > The following components form the core of the project. 
 They were designed and implemented by PhD researchers at TASL. 
@@ -59,9 +59,9 @@ My specific contributions are described in the
 Two predictors are used interchangeably to show 
 model-agnosticism:
 
-- **Constant Velocity (CV)** — rule-based linear extrapolation 
+- **Constant Velocity (CV)** - rule-based linear extrapolation 
 from current velocity; fast and interpretable
-- **Gumbel Social Transformer (GST)** — learning-based, 
+- **Gumbel Social Transformer (GST)** - learning-based, 
 handles sparse interactions and partially-detected agents 
 in dense crowds
 
@@ -71,7 +71,7 @@ for each pedestrian $h$.
 ### Adaptive Conformal Inference (ACI)
 
 Raw predictions are wrapped with uncertainty bounds using 
-**DtACI** — an online, distribution-free method that adapts 
+**DtACI** - an online, distribution-free method that adapts 
 as crowd dynamics shift.
 
 Actual prediction error at each step:
@@ -106,7 +106,7 @@ $$D_2(p_\text{ego}) = \{ p_\text{ego} : \|p_\text{ego} -
 \hat{p}_{h,k}\| \leq r_\text{ego} + r_h + \hat{\delta}_{h,k} 
 \}$$
 
-$D_2$ grows dynamically with prediction uncertainty — 
+$D_2$ grows dynamically with prediction uncertainty - 
 giving the robot a larger margin precisely when predictions 
 are less reliable.
 
@@ -147,11 +147,11 @@ $$\ell^\lambda_t = -\lambda\bigl(\bar{C} - \tilde{d}_C\bigr)$$
 
 Processes uncertainty-augmented observations through:
 
-1. **H-H Attention** — multi-head attention over all 
+1. **H-H Attention** - multi-head attention over all 
 pedestrian pairs modeling human-human interactions
-2. **H-R Attention** — fuses robot state into 
+2. **H-R Attention** - fuses robot state into 
 human-centric embeddings
-3. **GRU** — captures temporal dynamics across timesteps
+3. **GRU** - captures temporal dynamics across timesteps
 4. **Actor + Reward Critic** (shared backbone) + 
 **Cost Critic** (separate network)
 
@@ -160,7 +160,7 @@ human-centric embeddings
 ## My Contributions
 
 My work focused on extending the system's **perception 
-infrastructure and environment mapping** — the input layer 
+infrastructure and environment mapping**. The input layer 
 the RL policy operates on top of. Both contributions 
 involve classical robotics components and directly interface 
 with the robot learning system by modifying the RL agent's 
@@ -172,21 +172,21 @@ observation space.
 
 **Context:**
 The published system used only a 2D LiDAR (RPLIDAR-A1) 
-with DR-SPAAM — a learning-based human detector for 2D 
+with DR-SPAAM, a learning-based human detector for 2D 
 range data. A single horizontal scan plane limits 
 robustness: pedestrians at varying heights, partially 
 occluded agents, or those outside the scan plane are 
 missed entirely. Multi-modal sensor fusion was explicitly 
 flagged as future work in the original research.
 
-**Approach — Hybrid Classical + Learning Pipeline:**
+**Approach - Hybrid Classical + Learning Pipeline:**
 
 The extended perception pipeline fuses two modalities:
 
-- **3D LiDAR** — provides full volumetric point cloud 
+- **3D LiDAR** - provides full volumetric point cloud 
 $\mathcal{P}_t = \{(x_i, y_i, z_i)\}$ capturing 
 pedestrian geometry across multiple elevation planes
-- **RGB-D Camera** — provides pixel-aligned depth map 
+- **RGB-D Camera** - provides pixel-aligned depth map 
 $D_t$ enabling detection in visually rich but 
 geometrically sparse regions
 
@@ -249,25 +249,25 @@ simulation testing
 
 ---
 
-### 2. SLAM-Based Environment Mapping — Hybrid Navigation
+### 2. SLAM-Based Environment Mapping - Hybrid Navigation
 
 **Context:**
 The original system modeled static obstacles only as 
-circular agents — a simplification that fails in real 
+circular agents, a simplification that fails in real 
 environments with walls, corridors, and irregular 
 structures. SLAM integration was explicitly flagged as 
 future work in the original research.
 
-**Approach — Classical SLAM + RL Hybrid:**
+**Approach - Classical SLAM + RL Hybrid:**
 
 Navigation in this extended system operates across 
 two layers:
 
-- **Mapping layer (classical)** — Cartographer SLAM 
+- **Mapping layer (classical)** - Cartographer SLAM 
 builds and maintains a globally consistent 2D occupancy 
 grid $\mathcal{M}_t$ via graph-optimization on LiDAR 
 scan data with loop closure
-- **Decision layer (RL)** — the CRL policy continues 
+- **Decision layer (RL)** - the CRL policy continues 
 to handle all dynamic obstacle avoidance and 
 crowd navigation
 
@@ -288,7 +288,7 @@ observation channel in the RL agent's state:
 $$S_t^\text{extended} = [\mathbf{e},\; \mathbf{h},\; 
 \mathbf{m},\; \mathcal{M}_\text{local}(t)]$$
 
-This is a robot learning contribution — modifying the 
+This is a robot learning contribution modifying the 
 CMDP state representation changes what the policy can 
 condition its decisions on. The policy can now distinguish 
 between open space and wall-bounded corridors rather than 
@@ -311,7 +311,7 @@ $$C_t^\text{total} = \mu \cdot d_{\text{intr},t} +
 C_t^\text{map}$$
 
 This keeps the CRL constraint formulation intact while 
-extending it to handle arbitrary obstacle geometry — 
+extending it to handle arbitrary obstacle geometry 
 purely a cost function modification with no changes 
 to the underlying RL architecture.
 
@@ -334,8 +334,8 @@ corridor geometry
 simulation runs and real-world experiments on the 
 ROSMASTER X3 platform
 - Assisted in evaluating navigation safety and robustness 
-metrics — success rate, collision rate, intrusion time 
-ratio — across multiple crowd scenarios
+metrics - success rate, collision rate, intrusion time 
+ratio across multiple crowd scenarios
 
 ---
 
@@ -343,12 +343,12 @@ ratio — across multiple crowd scenarios
 
 | Component | Details |
 |-----------|---------|
-| Robot Platform | ROSMASTER X3 — Mecanum-wheel mobile robot |
-| Onboard Compute | NVIDIA RTX 3070 (Mobile) — connected via router |
-| 2D LiDAR (baseline) | RPLIDAR-A1 — 360°, ~6 Hz scan rate |
-| 3D LiDAR (extended) | 3D LiDAR — volumetric point cloud perception |
-| RGB-D Camera (extended) | RGB-D Camera — pixel-aligned depth + colour |
-| Locomotion | 4× Mecanum wheels — holonomic (independent vx, vy) |
+| Robot Platform | ROSMASTER X3 - Mecanum-wheel mobile robot |
+| Onboard Compute | NVIDIA RTX 3070 (Mobile) - connected via router |
+| 2D LiDAR (baseline) | RPLIDAR-A1 - 360°, ~6 Hz scan rate |
+| 3D LiDAR (extended) | 3D LiDAR - volumetric point cloud perception |
+| RGB-D Camera (extended) | RGB-D Camera - pixel-aligned depth + colour |
+| Locomotion | 4× Mecanum wheels - holonomic (independent vx, vy) |
 
 ---
 
@@ -402,7 +402,7 @@ safety margins. Lower density $\rightarrow$ higher $\alpha$
 $\rightarrow$ relaxed bounds $\rightarrow$ more efficient 
 navigation.
 
-The ACI update rule remains unchanged — only the coverage 
+The ACI update rule remains unchanged, only the coverage 
 parameter that drives the quantile target becomes 
 state-dependent.
 
@@ -417,7 +417,7 @@ state-dependent.
 
 **Problem:**
 The CRL cost function penalizes intrusion into individual 
-pedestrian uncertainty areas — but treats navigating 
+pedestrian uncertainty areas but treats navigating 
 near a single person identically to entering a cohesive 
 group. Entering a group is more socially disruptive, 
 harder to recover from, and can trap the robot.
@@ -435,7 +435,7 @@ $$C_t^{\mathcal{G}} = \mu_g \cdot
 {\text{Area}\bigl(\mathcal{H}(\mathcal{G})\bigr)}$$
 
 where $d(p_\text{ego}, \mathcal{H})$ is the signed 
-distance to the hull boundary — negative inside, 
+distance to the hull boundary negative inside, 
 positive outside. Area normalization makes the penalty 
 scale-invariant across group sizes.
 
@@ -444,7 +444,7 @@ Total extended cost:
 $$C_t^\text{total} = \mu \cdot d_{\text{intr},t} + 
 \sum_{\mathcal{G}} C_t^{\mathcal{G}}$$
 
-This is a pure cost function extension — no changes 
+This is a pure cost function extension no changes 
 to the underlying RL architecture required.
 
 **Expected outcome:**
