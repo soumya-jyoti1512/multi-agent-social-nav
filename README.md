@@ -99,12 +99,12 @@ expands automatically when crowd dynamics shift.
 
 Each pedestrian's safety zone is the union of two sub-areas:
 
-$$D_1 = \bigl\{ p_\text{ego} : \|p_\text{ego} - p_h\| 
-\leq r_\text{ego} + r_h + r_\text{comfort} \bigr\}$$
+$$D_1(p_\text{ego}) = \{ p_\text{ego} : \|p_\text{ego} - 
+p_h\| \leq r_\text{ego} + r_h + r_\text{comfort} \}$$
 
-$$D_2 = \bigl\{ p_\text{ego} : \|p_\text{ego} - 
-\hat{p}_{h,k}\| \leq r_\text{ego} + r_h + 
-\hat{\delta}_{h,k} \bigr\}$$
+$$D_2(p_\text{ego}) = \{ p_\text{ego} : \|p_\text{ego} - 
+\hat{p}_{h,k}\| \leq r_\text{ego} + r_h + \hat{\delta}_{h,k} 
+\}$$
 
 $D_2$ grows dynamically with prediction uncertainty — 
 giving the robot a larger margin precisely when predictions 
@@ -388,8 +388,8 @@ In highly dense crowds it may still be insufficient.
 
 Define a real-time local pedestrian density estimate:
 
-$$\rho(t) = \bigl|\bigl\{ h : \|p_h(t) - 
-p_\text{ego}(t)\| \leq r_\rho \bigr\}\bigr|$$
+$$\rho(t) = \left| \{ h : \|p_h(t) - p_\text{ego}(t)\| 
+\leq r_\rho \} \right|$$
 
 Drive $\alpha$ dynamically based on $\rho(t)$:
 
