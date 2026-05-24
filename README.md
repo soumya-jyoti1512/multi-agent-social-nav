@@ -191,22 +191,8 @@ $D_t$ enabling detection in visually rich but
 geometrically sparse regions
 
 The fusion pipeline:
-```text
-3D LiDAR Point Cloud ──► Euclidean Clustering / DBSCAN
-│
-RGB-D Depth Map ──► Depth Projection onto scan plane
-│
-┌────────────────────┘
-▼
-DR-SPAAM (Learning-Based Detector)
-operating on projected multi-modal input
-│
-▼
-SORT Tracker → Pedestrian State Estimates x_h(t)
-│
-▼
-GST Predictor + DtACI → p̂_{h,k}(t), δ̂_{h,k}
-```
+
+<img width="3006" height="2736" alt="Image" src="https://github.com/user-attachments/assets/c79d8762-313a-423b-9e10-deebc435f7eb" />
 
 ---
 
