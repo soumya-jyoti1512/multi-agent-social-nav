@@ -7,6 +7,8 @@ deployed on a real mobile robot.
 
 ---
 
+Lab Member webpage(Check alumni section): https://tasl.ucr.edu/people/
+
 # Note
 This project was conducted as part of TASL Lab at university of California, Riverside. The codebase, robot hardware, and computing infrastructure were owned by the lab. Accordingly, no source code or experimental data are published in this repository. This README documents the system design, technical architecture, and implementation approach for reference and portfolio purposes.
 
