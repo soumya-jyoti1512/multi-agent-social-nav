@@ -13,7 +13,7 @@ Lab Member webpage(Check alumni section): https://tasl.ucr.edu/people/
 This project was conducted as part of TASL Lab at university of California, Riverside. The codebase, robot hardware, and computing infrastructure were owned by the lab. Accordingly, no source code or experimental data are published in this repository. This README documents the system design, technical architecture, and implementation approach for reference and portfolio purposes.
 
 # Personal Reimplementation & Planned Extensions
-In Progress: A personal reimplementation of this system in a simulated environment is currently in progress. Since the original codebase belongs to the university research lab, this reimplementation is being developed independently from scratch. Two extensions beyond the original architecture are being incorporated, each targeting a distinct layer of the system.
+A personal reimplementation of this system in a simulated environment is planned. Since the original codebase belongs to the university research lab, this reimplementation is being developed independently from scratch. Two extensions beyond the original architecture are being incorporated, each targeting a distinct layer of the system.
 
 ---
 
